@@ -20,4 +20,5 @@ print(datetime.datetime.now().replace(microsecond=0))
 zmixan = datetime.datetime(2007, 11, 7, 12, 30, 0)
 tokha = datetime.datetime(2007, 11, 30, 1, 34, 0)
 difference = tokha - zmixan
-print(difference)
+sec = difference.total_seconds()
+print(int(sec), "seconds")

@@ -32,7 +32,7 @@ def update_data():
     if way == 'manually':
         name = input("name: ")
         phone = input("phone: ")
-        cur.callproc('new_user', (name, phone))
+        cur.execute('CALL new_user(%s, %s)', (name, phone))
 
     elif way == 'list':
         incorrect_data = []
@@ -42,7 +42,7 @@ def update_data():
         for i in range(len(nal)):
             if not phl[i].isdigit() or not len(phl[i]) == 11:
                 incorrect_data.append((nal[i], phl[i]))
-        cur.callproc('insertlist', (nal, phl))
+        cur.execute('CALL insertlist(%s, %s)', (nal, phl))
         if incorrect_data:
             print("incorrect_data:", incorrect_data)
     cur.close()
@@ -107,9 +107,9 @@ def delete_data():
     filter_value = input(f"{filter_type}: ")
 
     if filter_type == 'name':
-        cur.callproc("delete_user", (filter_value,))
+        cur.execute("CALL delete_user(%s)", (filter_value,))
     elif filter_type == 'phone':
-        cur.callproc("delete_phone", (filter_value,))
+        cur.execute("CALL delete_phone(%s)", (filter_value,))
     else:
         print("incorrect filter")
         return
